@@ -14,8 +14,9 @@ fetch("trails.json")
 
 function difficultyClass(difficulty) {
   const d = difficulty.toLowerCase();
+  if (d.includes("easy") && d.includes("moderate")) return "difficulty-easy-moderate";
   if (d.includes("moderate") && d.includes("hard")) return "difficulty-moderate-hard";
-  if (d.includes("easy") && !d.includes("moderate")) return "difficulty-easy";
+  if (d.includes("easy")) return "difficulty-easy";
   if (d.includes("hard")) return "difficulty-hard";
   return "difficulty-moderate";
 }
