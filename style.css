@@ -36,9 +36,11 @@ body {
 /* Trail grid */
 .trail-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .trail-card {
@@ -87,7 +89,7 @@ body {
 }
 
 .difficulty-easy { color: #22c55e; }
-.difficulty-easy-moderate { color: #a3e635; }
+.difficulty-easy-moderate { color: #84cc16; }
 .difficulty-moderate { color: #eab308; }
 .difficulty-moderate-hard { color: #f97316; }
 .difficulty-hard { color: #ef4444; }
@@ -99,7 +101,16 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 500px) {
+@media (max-width: 900px) {
+  .trail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .trail-grid {
+    grid-template-columns: 1fr;
+  }
   .hero {
     height: 260px;
     padding: 20px;
