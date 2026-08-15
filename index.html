@@ -69,12 +69,53 @@
     </div>
   </dialog>
 
+  <dialog id="receiptModal">
+    <button type="button" id="closeReceiptModal" class="close-btn">&times;</button>
+    <div class="modal-body receipt-preview-body">
+      <h2>Your Hike Plan</h2>
+      <div class="receipt-preview-wrap">
+        <canvas id="receiptCanvas"></canvas>
+      </div>
+      <div class="receipt-actions">
+        <button type="button" id="downloadReceiptBtn" class="btn btn-primary">Download</button>
+        <button type="button" id="shareReceiptBtn" class="btn btn-secondary">Share</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Hidden receipt template, rendered to image by html2canvas -->
+  <div id="receiptTemplate" class="receipt-template">
+    <div class="receipt-bg" id="receiptBg"></div>
+    <div class="receipt-overlay">
+      <div class="receipt-top">
+        <img src="assets/logo-transparent.png" class="receipt-logo" alt="">
+        <span class="receipt-brand-text">Made with Margalla Hiking Tracker</span>
+      </div>
+
+      <div class="receipt-main">
+        <span class="receipt-trail-name" id="rTrailName"></span>
+        <span class="receipt-difficulty" id="rDifficulty"></span>
+
+        <div class="receipt-row">
+          <span id="rDate"></span>
+        </div>
+        <div class="receipt-row">
+          <span id="rPeopleCount"></span>
+        </div>
+        <div class="receipt-names" id="rNames"></div>
+
+        <div class="receipt-hazard" id="rHazard"></div>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     Made by <a href="https://github.com/umexrn" target="_blank" rel="noopener">Umer Nauman</a>
     · <a href="https://github.com/umexrn" target="_blank" rel="noopener">GitHub</a>
     · <a href="https://linkedin.com/in/umexrn" target="_blank" rel="noopener">LinkedIn</a>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
