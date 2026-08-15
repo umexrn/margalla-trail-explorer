@@ -347,6 +347,7 @@ dialog::backdrop {
   width: 1080px;
   height: 1920px;
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 .receipt-bg {
@@ -359,97 +360,99 @@ dialog::backdrop {
 .receipt-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(15,15,16,0.55) 0%, rgba(15,15,16,0.35) 45%, rgba(15,15,16,0.9) 80%, #0f0f10 100%);
+  background: linear-gradient(to bottom, rgba(15,15,16,0.15) 0%, rgba(15,15,16,0.1) 35%, rgba(15,15,16,0.85) 78%, #0f0f10 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 70px 60px;
+  padding: 60px 55px;
   color: #fff;
 }
 
-.receipt-content-top {
+/* Top row */
+.receipt-top-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
 }
 
-.receipt-info-block {
+.receipt-route-icon {
+  width: 130px;
+  height: auto;
+  object-fit: contain;
+}
+
+.receipt-top-right {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 620px;
+  align-items: flex-end;
+  gap: 16px;
 }
 
-.receipt-trail-name {
-  font-size: 56px;
+.receipt-mini-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.receipt-names-list-new {
+  list-style: none;
+  text-align: right;
+}
+
+.receipt-names-list-new li {
+  font-size: 42px;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.25;
+  text-transform: uppercase;
 }
 
-.receipt-difficulty {
-  font-size: 30px;
-  font-weight: 600;
-}
-
-.receipt-date {
-  font-size: 30px;
-  color: #ddd;
+/* Bottom block */
+.receipt-bottom-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .receipt-hazard {
-  margin-top: 10px;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
-  padding: 12px 18px;
-  border-radius: 12px;
+  padding: 12px 20px;
+  border-radius: 999px;
   display: inline-block;
   width: fit-content;
 }
 
-.receipt-names-list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-
-.receipt-names-title {
-  font-size: 24px;
-  color: #bbb;
+.receipt-trail-number {
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 12px;
 }
 
-.receipt-names-list ul {
-  list-style: none;
-}
-
-.receipt-names-list li {
+.receipt-date {
   font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-weight: 600;
+  color: #eee;
 }
 
-.receipt-brand-bottom {
+.receipt-brand-bottom-left {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  align-self: center;
-}
-
-.receipt-logo {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
+  gap: 12px;
+  margin-top: 18px;
 }
 
 .receipt-brand-text {
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 700;
   color: #eee;
+}
+
+.receipt-logo-small {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
 /* Responsive */
