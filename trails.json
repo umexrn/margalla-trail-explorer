@@ -1,0 +1,47 @@
+[
+  {
+    "id": "trail-3",
+    "name": "Trail 3 (Daman-e-Koh)",
+    "length_km": 3.5,
+    "elevation_gain_m": 300,
+    "difficulty": "Moderate",
+    "description": "One of the most popular trails in Margalla Hills, starting near Daman-e-Koh viewpoint with scenic overlooks of Islamabad.",
+    "image": "assets/trail3.jpg"
+  },
+  {
+    "id": "trail-5",
+    "name": "Trail 5 (Pir Sohawa)",
+    "length_km": 5.2,
+    "elevation_gain_m": 450,
+    "difficulty": "Moderate-Hard",
+    "description": "A longer, more challenging trail ending near Pir Sohawa, known for dense forest cover and steep sections.",
+    "image": "assets/trail5.jpg"
+  },
+  {
+    "id": "trail-6",
+    "name": "Trail 6",
+    "length_km": 4.8,
+    "elevation_gain_m": 420,
+    "difficulty": "Hard",
+    "description": "A steep and less crowded trail favored by more experienced hikers.",
+    "image": "assets/trail6.jpg"
+  },
+  {
+    "id": "monal-trail",
+    "name": "Monal Trail",
+    "length_km": 6.0,
+    "elevation_gain_m": 500,
+    "difficulty": "Hard",
+    "description": "Leads toward Monal restaurant, a long and scenic but demanding hike with great views of the city.",
+    "image": "assets/monal.jpg"
+  },
+  {
+    "id": "trail-1",
+    "name": "Trail 1",
+    "length_km": 2.0,
+    "elevation_gain_m": 150,
+    "difficulty": "Easy",
+    "description": "Shortest and most beginner-friendly trail in the range, good for casual hikers and families.",
+    "image": "assets/trail1.jpg"
+  }
+]
