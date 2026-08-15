@@ -179,7 +179,7 @@ planForm.addEventListener("submit", (e) => {
 
 // ---------- Receipt generation ----------
 function generateReceipt(hikeData) {
-  const bgImage = hikeData.customImage || hikeData.trail.image;
+  const bgImage = hikeData.customImage || hikeData.trail.receipt_image || hikeData.trail.image;
   document.getElementById("receiptBg").style.setProperty("--bg-img", `url('${bgImage}')`);
   document.getElementById("rTrailNumber").textContent = shortTrailLabel(hikeData.trail.name);
 
