@@ -40,6 +40,35 @@
     </div>
   </dialog>
 
+  <dialog id="planModal">
+    <button type="button" id="closePlanModal" class="close-btn">&times;</button>
+    <div class="modal-body">
+      <h2>Plan a Hike</h2>
+      <p class="plan-subtitle" id="planTrailName"></p>
+
+      <form id="planForm">
+        <label>Date
+          <input type="date" id="pDate" required>
+        </label>
+
+        <label>Number of People
+          <input type="number" id="pPeopleCount" min="1" max="30" value="1" required>
+        </label>
+
+        <label>Names (comma separated)
+          <input type="text" id="pNames" placeholder="e.g. Umer, Ali, Zara" required>
+        </label>
+
+        <div class="weather-box" id="weatherBox">
+          <span class="weather-label">Trail Conditions</span>
+          <div id="weatherStatus" class="weather-status">Checking weather...</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generate Hike Plan</button>
+      </form>
+    </div>
+  </dialog>
+
   <footer class="site-footer">
     Made by <a href="https://github.com/umexrn" target="_blank" rel="noopener">Umer Nauman</a>
     · <a href="https://github.com/umexrn" target="_blank" rel="noopener">GitHub</a>
