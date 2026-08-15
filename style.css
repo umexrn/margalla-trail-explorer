@@ -223,6 +223,15 @@ dialog::backdrop {
   background: #1d4ed8;
 }
 
+.btn-secondary {
+  background: #2a2a2c;
+  color: #e5e5e5;
+}
+
+.btn-secondary:hover {
+  background: #333;
+}
+
 /* Plan a Hike form */
 .plan-subtitle {
   font-size: 0.85rem;
@@ -294,6 +303,114 @@ dialog::backdrop {
 .site-footer a:hover {
   color: #ccc;
   text-decoration: underline;
+}
+
+/* Receipt preview modal */
+.receipt-preview-body {
+  text-align: center;
+}
+
+.receipt-preview-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+#receiptCanvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #2a2a2c;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Receipt template (off-screen, rendered to canvas) */
+.receipt-template {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+}
+
+.receipt-bg {
+  position: absolute;
+  inset: 0;
+  background: #1a1a1c center/cover no-repeat;
+  background-image: var(--bg-img);
+}
+
+.receipt-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,15,16,0.55) 0%, rgba(15,15,16,0.4) 40%, rgba(15,15,16,0.92) 75%, #0f0f10 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 70px 60px;
+  color: #fff;
+}
+
+.receipt-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.receipt-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.receipt-brand-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: #eee;
+}
+
+.receipt-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.receipt-trail-name {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.receipt-difficulty {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.receipt-row {
+  font-size: 32px;
+  color: #ddd;
+}
+
+.receipt-names {
+  font-size: 28px;
+  color: #ccc;
+  margin-top: 6px;
+}
+
+.receipt-hazard {
+  margin-top: 24px;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: inline-block;
+  width: fit-content;
 }
 
 /* Responsive */
