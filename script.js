@@ -96,39 +96,52 @@ document.getElementById("planHikeBtn").addEventListener("click", () => {
   planForm.reset();
   document.getElementById("pDate").value = new Date().toISOString().split("T")[0];
   planModal.showModal();
-  fetchWeather();
+  fetchWeather(document.getElementById("pDate").value);
+});
+
+document.getElementById("pDate").addEventListener("change", (e) => {
+  fetchWeather(e.target.value);
 });
 
 document.getElementById("closePlanModal").addEventListener("click", () => {
   planModal.close();
 });
 
-// ---------- Weather / hazard check ----------
-function fetchWeather() {
+// ---------- Weather / hazard check (up to 16-day forecast) ----------
+function fetchWeather(selectedDateStr) {
   const statusEl = document.getElementById("weatherStatus");
   statusEl.textContent = "Checking weather...";
   statusEl.className = "weather-status";
 
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${MARGALLA_LAT}&longitude=${MARGALLA_LON}&current=precipitation,rain&timezone=auto`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${MARGALLA_LAT}&longitude=${MARGALLA_LON}&daily=precipitation_sum&timezone=auto&forecast_days=16`;
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      const rain = data.current?.precipitation ?? 0;
+      const dayIndex = data.daily.time.indexOf(selectedDateStr);
+
+      if (dayIndex === -1) {
+        statusEl.textContent = "Forecast unavailable for this date (only available up to 16 days ahead). The receipt won't show a conditions badge.";
+        statusEl.className = "weather-status weather-unknown";
+        window.currentHazard = null;
+        return;
+      }
+
+      const rain = data.daily.precipitation_sum[dayIndex];
       let level, className, hazardLabel, hazardColor;
 
-      if (rain >= 7.5) {
-        level = `Heavy rain (${rain} mm/hr) — Flash flood risk. Hike with caution.`;
+      if (rain >= 15) {
+        level = `Heavy rain forecast (${rain} mm) — Flash flood risk. Hike with caution.`;
         className = "weather-hazard";
-        hazardLabel = "⚠ HAZARDOUS CONDITIONS";
+        hazardLabel = "RAIN HAZARD ⚠";
         hazardColor = "#ef4444";
-      } else if (rain >= 2.5) {
-        level = `Moderate rain (${rain} mm/hr) — Trail may be slippery.`;
+      } else if (rain >= 5) {
+        level = `Moderate rain forecast (${rain} mm) — Trail may be slippery.`;
         className = "weather-caution";
-        hazardLabel = "⚠ USE CAUTION";
+        hazardLabel = "USE CAUTION ⚠";
         hazardColor = "#eab308";
       } else {
-        level = `Clear conditions (${rain} mm/hr) — Safe to hike.`;
+        level = `Clear conditions forecast (${rain} mm) — Safe to hike.`;
         className = "weather-safe";
         hazardLabel = "CLEAR CONDITIONS ✓";
         hazardColor = "#22c55e";
@@ -141,8 +154,8 @@ function fetchWeather() {
     .catch(err => {
       console.error("Weather fetch failed", err);
       statusEl.textContent = "Weather unavailable — check conditions before hiking.";
-      statusEl.className = "weather-status weather-caution";
-      window.currentHazard = { rain: null, hazardLabel: "⚠ WEATHER UNAVAILABLE", hazardColor: "#eab308" };
+      statusEl.className = "weather-status weather-unknown";
+      window.currentHazard = null;
     });
 }
 
@@ -153,6 +166,7 @@ planForm.addEventListener("submit", (e) => {
   currentHikeData = {
     trail: currentTrail,
     date: document.getElementById("pDate").value,
+    time: document.getElementById("pTime").value,
     names: document.getElementById("pNames").value.split(",").map(n => n.trim()).filter(Boolean),
     hazard: window.currentHazard,
     customImage: null
@@ -174,6 +188,17 @@ function generateReceipt(hikeData) {
   });
   document.getElementById("rDate").textContent = formattedDate;
 
+  const timeEl = document.getElementById("rTimeTop");
+  if (hikeData.time) {
+    const [h, m] = hikeData.time.split(":");
+    const hour12 = ((+h % 12) || 12);
+    const ampm = +h < 12 ? "AM" : "PM";
+    timeEl.textContent = `${hour12}:${m} ${ampm}`;
+    timeEl.style.display = "block";
+  } else {
+    timeEl.style.display = "none";
+  }
+
   const namesList = document.getElementById("rNamesList");
   namesList.innerHTML = "";
   hikeData.names.forEach(name => {
@@ -183,13 +208,17 @@ function generateReceipt(hikeData) {
   });
 
   const hazardEl = document.getElementById("rHazard");
-  hazardEl.textContent = hikeData.hazard.hazardLabel;
-  hazardEl.style.background = hikeData.hazard.hazardColor;
-  hazardEl.style.color = "#0f0f10";
+  if (hikeData.hazard) {
+    hazardEl.textContent = hikeData.hazard.hazardLabel;
+    hazardEl.style.background = hikeData.hazard.hazardColor;
+    hazardEl.style.color = "#0f0f10";
+    hazardEl.style.display = "inline-block";
+  } else {
+    hazardEl.style.display = "none";
+  }
 
   const template = document.getElementById("receiptTemplate");
 
-  // Wait for fonts to be ready so html2canvas captures Poppins correctly
   document.fonts.ready.then(() => {
     html2canvas(template, { width: 1080, height: 1920, scale: 1, useCORS: true }).then(canvas => {
       const previewCanvas = document.getElementById("receiptCanvas");
