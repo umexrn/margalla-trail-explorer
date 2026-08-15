@@ -20,6 +20,23 @@
     <!-- trail cards injected by JS -->
   </main>
 
+  <dialog id="trailModal">
+    <button type="button" id="closeModal" class="close-btn">&times;</button>
+    <div class="modal-image" id="modalImage"></div>
+    <div class="modal-body">
+      <h2 id="modalName"></h2>
+      <div class="trail-meta" id="modalMeta"></div>
+      <p id="modalDesc" class="modal-desc"></p>
+
+      <div class="wildlife-section">
+        <h3>Wildlife You Might Spot</h3>
+        <ul id="modalWildlife"></ul>
+      </div>
+
+      <button type="button" id="planHikeBtn" class="btn btn-primary">Plan a Hike Here</button>
+    </div>
+  </dialog>
+
   <script src="script.js"></script>
 </body>
 </html>
