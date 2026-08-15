@@ -232,6 +232,16 @@ dialog::backdrop {
   background: #333;
 }
 
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #2a2a2c;
+  color: #ccc;
+}
+
+.btn-ghost:hover {
+  background: #1a1a1c;
+}
+
 /* Plan a Hike form */
 .plan-subtitle {
   font-size: 0.85rem;
@@ -326,6 +336,7 @@ dialog::backdrop {
 .receipt-actions {
   display: flex;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 /* Receipt template (off-screen, rendered to canvas) */
