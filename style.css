@@ -120,7 +120,7 @@ body {
   line-height: 1.4;
 }
 
-/* Modal */
+/* Modal (shared) */
 dialog {
   position: fixed;
   top: 50%;
@@ -222,6 +222,61 @@ dialog::backdrop {
 .btn-primary:hover {
   background: #1d4ed8;
 }
+
+/* Plan a Hike form */
+.plan-subtitle {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+#planForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#planForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+#planForm input {
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  color: #e5e5e5;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.weather-box {
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.weather-label {
+  font-size: 0.72rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.weather-status {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.weather-safe { color: #22c55e; }
+.weather-caution { color: #eab308; }
+.weather-hazard { color: #ef4444; }
 
 /* Footer */
 .site-footer {
