@@ -1,47 +1,62 @@
 [
   {
-    "id": "trail-3",
-    "name": "Trail 3 (Daman-e-Koh)",
-    "length_km": 3.5,
+    "id": "trail-1",
+    "name": "Trail 1 (Kalinjer)",
+    "length_km": 3.3,
     "elevation_gain_m": 300,
     "difficulty": "Moderate",
-    "description": "One of the most popular trails in Margalla Hills, starting near Daman-e-Koh viewpoint with scenic overlooks of Islamabad.",
+    "description": "A scenic route through dense forest and rocky paths, ending near Pir Sohawa Road. Popular with nature lovers for its steady, moderate climb.",
+    "wildlife": ["Barking deer", "Various bird species", "Iguanas"],
+    "image": "assets/trail1.jpg"
+  },
+  {
+    "id": "trail-2",
+    "name": "Trail 2",
+    "length_km": 3.5,
+    "elevation_gain_m": 250,
+    "difficulty": "Easy-Moderate",
+    "description": "Starts near Islamabad Zoo and leads up to Daman-e-Koh viewpoint, a relatively gentle 1 to 1.5 hour hike with strong city views.",
+    "wildlife": ["Wild boars", "Various bird species"],
+    "image": "assets/trail2.jpg"
+  },
+  {
+    "id": "trail-3",
+    "name": "Trail 3 (near Monal)",
+    "length_km": 6.1,
+    "elevation_gain_m": 450,
+    "difficulty": "Moderate-Hard",
+    "description": "The oldest and most famous trail in Margalla Hills, starting at sector F-6. Steep in sections, well-marked, and ends near where Monal Restaurant used to sit on Pir Sohawa Road.",
+    "wildlife": ["Leopard (rare sightings)", "Civet cats", "Barking deer", "Snakes"],
     "image": "assets/trail3.jpg"
+  },
+  {
+    "id": "trail-4",
+    "name": "Trail 4",
+    "length_km": 1.5,
+    "elevation_gain_m": 350,
+    "difficulty": "Hard",
+    "description": "A steep connecting trail between Trail 3 and Trail 5, also linked to Trail 6. Strenuous despite its short length.",
+    "wildlife": ["Barking deer", "Various bird species"],
+    "image": "assets/trail4.jpg"
   },
   {
     "id": "trail-5",
     "name": "Trail 5 (Pir Sohawa)",
-    "length_km": 5.2,
-    "elevation_gain_m": 450,
-    "difficulty": "Moderate-Hard",
-    "description": "A longer, more challenging trail ending near Pir Sohawa, known for dense forest cover and steep sections.",
+    "length_km": 5.0,
+    "elevation_gain_m": 550,
+    "difficulty": "Hard",
+    "description": "Easy for the first 2-3 km, then a steep final stretch to the top of Pir Sohawa Road. Criss-crossed by streams and springs with strong views from the summit.",
+    "wildlife": ["Snow leopard (rare)", "Civet cats", "Snakes", "Barking deer"],
     "image": "assets/trail5.jpg"
   },
   {
     "id": "trail-6",
     "name": "Trail 6",
-    "length_km": 4.8,
-    "elevation_gain_m": 420,
-    "difficulty": "Hard",
-    "description": "A steep and less crowded trail favored by more experienced hikers.",
+    "length_km": 4.0,
+    "elevation_gain_m": 400,
+    "difficulty": "Moderate",
+    "description": "Entrance tucked behind Faisal Mosque, making it less crowded. Has a separate track for mountain biking and cycling, and is popular for bird watching.",
+    "wildlife": ["Various bird species (popular birdwatching spot)"],
     "image": "assets/trail6.jpg"
-  },
-  {
-    "id": "monal-trail",
-    "name": "Monal Trail",
-    "length_km": 6.0,
-    "elevation_gain_m": 500,
-    "difficulty": "Hard",
-    "description": "Leads toward Monal restaurant, a long and scenic but demanding hike with great views of the city.",
-    "image": "assets/monal.jpg"
-  },
-  {
-    "id": "trail-1",
-    "name": "Trail 1",
-    "length_km": 2.0,
-    "elevation_gain_m": 150,
-    "difficulty": "Easy",
-    "description": "Shortest and most beginner-friendly trail in the range, good for casual hikers and families.",
-    "image": "assets/trail1.jpg"
   }
 ]
