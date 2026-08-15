@@ -87,9 +87,10 @@ body {
 }
 
 .difficulty-easy { color: #22c55e; }
+.difficulty-easy-moderate { color: #a3e635; }
 .difficulty-moderate { color: #eab308; }
-.difficulty-hard { color: #ef4444; }
 .difficulty-moderate-hard { color: #f97316; }
+.difficulty-hard { color: #ef4444; }
 
 .trail-card-body .desc {
   font-size: 0.82rem;
