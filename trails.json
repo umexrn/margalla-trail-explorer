@@ -7,7 +7,8 @@
     "difficulty": "Moderate",
     "description": "A scenic route through dense forest and rocky paths, ending near Pir Sohawa Road. Popular with nature lovers for its steady, moderate climb.",
     "wildlife": ["Barking deer", "Various bird species", "Iguanas"],
-    "image": "assets/trail1.jpg"
+    "image": "assets/trail1.jpg",
+    "receipt_image": "assets/trail1-receipt.jpg"
   },
   {
     "id": "trail-2",
@@ -17,7 +18,8 @@
     "difficulty": "Easy-Moderate",
     "description": "Starts near Islamabad Zoo and leads up to Daman-e-Koh viewpoint, a relatively gentle 1 to 1.5 hour hike with strong city views.",
     "wildlife": ["Wild boars", "Various bird species"],
-    "image": "assets/trail2.jpg"
+    "image": "assets/trail2.jpg",
+    "receipt_image": "assets/trail2-receipt.jpg"
   },
   {
     "id": "trail-3",
@@ -27,7 +29,8 @@
     "difficulty": "Moderate-Hard",
     "description": "The oldest and most famous trail in Margalla Hills, starting at sector F-6. Steep in sections, well-marked, and ends near where Monal Restaurant used to sit on Pir Sohawa Road.",
     "wildlife": ["Leopard (rare sightings)", "Civet cats", "Barking deer", "Snakes"],
-    "image": "assets/trail3.jpg"
+    "image": "assets/trail3.jpg",
+    "receipt_image": "assets/trail3-receipt.jpg"
   },
   {
     "id": "trail-4",
@@ -37,7 +40,8 @@
     "difficulty": "Hard",
     "description": "A steep connecting trail between Trail 3 and Trail 5, also linked to Trail 6. Strenuous despite its short length.",
     "wildlife": ["Barking deer", "Various bird species"],
-    "image": "assets/trail4.jpg"
+    "image": "assets/trail4.jpg",
+    "receipt_image": "assets/trail4-receipt.jpg"
   },
   {
     "id": "trail-5",
@@ -47,7 +51,8 @@
     "difficulty": "Hard",
     "description": "Easy for the first 2-3 km, then a steep final stretch to the top of Pir Sohawa Road. Criss-crossed by streams and springs with strong views from the summit.",
     "wildlife": ["Snow leopard (rare)", "Civet cats", "Snakes", "Barking deer"],
-    "image": "assets/trail5.jpg"
+    "image": "assets/trail5.jpg",
+    "receipt_image": "assets/trail5-receipt.jpg"
   },
   {
     "id": "trail-6",
@@ -57,6 +62,7 @@
     "difficulty": "Moderate",
     "description": "Entrance tucked behind Faisal Mosque, making it less crowded. Has a separate track for mountain biking and cycling, and is popular for bird watching.",
     "wildlife": ["Various bird species (popular birdwatching spot)"],
-    "image": "assets/trail6.jpg"
+    "image": "assets/trail6.jpg",
+    "receipt_image": "assets/trail6-receipt.jpg"
   }
 ]
