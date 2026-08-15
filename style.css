@@ -1,122 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Margalla Trail Explorer</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  <header class="hero">
-    <div class="hero-overlay">
-      <div class="brand">
-        <img src="assets/logo.png" alt="Logo" class="logo">
-        <h1>Margalla Trail Explorer</h1>
-      </div>
-      <p>Browse trails. Plan group hikes. Share it on socials.</p>
-    </div>
-  </header>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0f0f10;
+  color: #e5e5e5;
+}
 
-  <main class="trail-grid" id="trailGrid">
-    <!-- trail cards injected by JS -->
-  </main>
+/* Hero */
+.hero {
+  height: 420px;
+  background:
+    linear-gradient(to bottom, rgba(15,15,16,0.1) 0%, rgba(15,15,16,0.55) 75%, #0f0f10 100%),
+    url("https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=1600&auto=format&fit=crop")
+    center 30%/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 32px;
+}
 
-  <dialog id="trailModal">
-    <button type="button" id="closeModal" class="close-btn">&times;</button>
-    <div class="modal-image" id="modalImage"></div>
-    <div class="modal-body">
-      <h2 id="modalName"></h2>
-      <div class="trail-meta" id="modalMeta"></div>
-      <p id="modalDesc" class="modal-desc"></p>
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
 
-      <div class="wildlife-section">
-        <h3>Wildlife You Might Spot</h3>
-        <ul id="modalWildlife"></ul>
-      </div>
+.logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
 
-      <button type="button" id="planHikeBtn" class="btn btn-primary">Plan a Hike Here</button>
-    </div>
-  </dialog>
+.hero-overlay h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
 
-  <dialog id="planModal">
-    <button type="button" id="closePlanModal" class="close-btn">&times;</button>
-    <div class="modal-body">
-      <h2>Plan a Hike</h2>
-      <p class="plan-subtitle" id="planTrailName"></p>
+.hero-overlay p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
 
-      <form id="planForm">
-        <label>Date
-          <input type="date" id="pDate" required>
-        </label>
+/* Trail grid */
+.trail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-        <label>Number of People
-          <input type="number" id="pPeopleCount" min="1" max="30" value="1" required>
-        </label>
+.trail-card {
+  background: #1a1a1c;
+  border: 1px solid #2a2a2c;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
 
-        <label>Names (comma separated)
-          <input type="text" id="pNames" placeholder="e.g. Umer, Ali, Zara" required>
-        </label>
+.trail-card:hover {
+  transform: translateY(-3px);
+  border-color: #444;
+}
 
-        <div class="weather-box" id="weatherBox">
-          <span class="weather-label">Trail Conditions</span>
-          <div id="weatherStatus" class="weather-status">Checking weather...</div>
-        </div>
+.trail-card-image {
+  position: relative;
+  height: 160px;
+  background: #2a2a2c center/cover no-repeat;
+  background-image: var(--bg-img);
+}
 
-        <button type="submit" class="btn btn-primary">Generate Hike Plan</button>
-      </form>
-    </div>
-  </dialog>
+.trail-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(26,26,28,0) 80%, #1a1a1c 100%);
+}
 
-  <dialog id="receiptModal">
-    <button type="button" id="closeReceiptModal" class="close-btn">&times;</button>
-    <div class="modal-body receipt-preview-body">
-      <h2>Your Hike Plan</h2>
-      <div class="receipt-preview-wrap">
-        <canvas id="receiptCanvas"></canvas>
-      </div>
-      <div class="receipt-actions">
-        <button type="button" id="downloadReceiptBtn" class="btn btn-primary">Download</button>
-        <button type="button" id="shareReceiptBtn" class="btn btn-secondary">Share</button>
-      </div>
-    </div>
-  </dialog>
+.trail-card-body {
+  padding: 16px;
+}
 
-  <!-- Hidden receipt template, rendered to image by html2canvas -->
-  <div id="receiptTemplate" class="receipt-template">
-    <div class="receipt-bg" id="receiptBg"></div>
-    <div class="receipt-overlay">
+.trail-card-body h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
 
-      <div class="receipt-content-top">
-        <div class="receipt-info-block">
-          <span class="receipt-trail-name" id="rTrailName"></span>
-          <span class="receipt-difficulty" id="rDifficulty"></span>
-          <span class="receipt-date" id="rDate"></span>
-          <div class="receipt-hazard" id="rHazard"></div>
-        </div>
+.trail-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
 
-        <div class="receipt-names-list">
-          <span class="receipt-names-title">Hiking With</span>
-          <ul id="rNamesList"></ul>
-        </div>
-      </div>
+.meta-tag {
+  font-size: 0.72rem;
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #999;
+}
 
-      <div class="receipt-brand-bottom">
-        <img src="assets/logo-transparent.png" class="receipt-logo" alt="">
-        <span class="receipt-brand-text">Made with Margalla Hiking Tracker</span>
-      </div>
+.difficulty-easy { color: #22c55e; }
+.difficulty-easy-moderate { color: #84cc16; }
+.difficulty-moderate { color: #eab308; }
+.difficulty-moderate-hard { color: #f97316; }
+.difficulty-hard { color: #ef4444; }
 
-    </div>
-  </div>
+.trail-card-body .desc {
+  font-size: 0.82rem;
+  color: #999;
+  line-height: 1.4;
+}
 
-  <footer class="site-footer">
-    Made by <a href="https://github.com/umexrn" target="_blank" rel="noopener">Umer Nauman</a>
-    · <a href="https://github.com/umexrn" target="_blank" rel="noopener">GitHub</a>
-    · <a href="https://linkedin.com/in/umexrn" target="_blank" rel="noopener">LinkedIn</a>
-  </footer>
+/* Modal (shared) */
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  background: #1a1a1c;
+  color: #e5e5e5;
+  border: 1px solid #2a2a2c;
+  border-radius: 10px;
+  padding: 0;
+  width: 520px;
+  max-width: 92vw;
+  max-height: 85vh;
+  overflow-y: auto;
+}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+dialog::backdrop {
+  background: rgba(0,0,0,0.65);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.modal-image {
+  height: 200px;
+  background: #2a2a2c center/cover no-repeat;
+  background-image: var(--bg-img);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-body h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  font-size: 0.88rem;
+  color: #ccc;
+  line-height: 1.5;
+  margin: 12px 0 20px;
+}
+
+.wildlife-section h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.wildlife-section ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.wildlife-section li {
+  font-size: 0.8rem;
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #ccc;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 100%;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #2a2a2c;
+  color: #e5e5e5;
+}
+
+.btn-secondary:hover {
+  background: #333;
+}
+
+/* Plan a Hike form */
+.plan-subtitle {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+#planForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#planForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+#planForm input {
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  color: #e5e5e5;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.weather-box {
+  background: #0f0f10;
+  border: 1px solid #2a2a2c;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.weather-label {
+  font-size: 0.72rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.weather-status {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.weather-safe { color: #22c55e; }
+.weather-caution { color: #eab308; }
+.weather-hazard { color: #ef4444; }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #666;
+  padding: 20px;
+}
+
+.site-footer a {
+  color: #888;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #ccc;
+  text-decoration: underline;
+}
+
+/* Receipt preview modal */
+.receipt-preview-body {
+  text-align: center;
+}
+
+.receipt-preview-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+#receiptCanvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #2a2a2c;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Receipt template (off-screen, rendered to canvas) */
+.receipt-template {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+}
+
+.receipt-bg {
+  position: absolute;
+  inset: 0;
+  background: #1a1a1c center/cover no-repeat;
+  background-image: var(--bg-img);
+}
+
+.receipt-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,15,16,0.55) 0%, rgba(15,15,16,0.35) 45%, rgba(15,15,16,0.9) 80%, #0f0f10 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 70px 60px;
+  color: #fff;
+}
+
+.receipt-content-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.receipt-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 620px;
+}
+
+.receipt-trail-name {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.receipt-difficulty {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.receipt-date {
+  font-size: 30px;
+  color: #ddd;
+}
+
+.receipt-hazard {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 12px 18px;
+  border-radius: 12px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.receipt-names-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.receipt-names-title {
+  font-size: 24px;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.receipt-names-list ul {
+  list-style: none;
+}
+
+.receipt-names-list li {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.receipt-brand-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  align-self: center;
+}
+
+.receipt-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.receipt-brand-text {
+  font-size: 26px;
+  font-weight: 600;
+  color: #eee;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .trail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .trail-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    height: 260px;
+    padding: 20px;
+  }
+  .hero-overlay h1 {
+    font-size: 1.5rem;
+  }
+}
