@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Horizon';
+  src: url('assets/fonts/Horizon.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +12,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #0f0f10;
   color: #e5e5e5;
 }
@@ -36,8 +43,10 @@ body {
 }
 
 .hero-overlay h1 {
-  font-size: 2rem;
+  font-family: 'Horizon', sans-serif;
+  font-size: 2.2rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .hero-overlay p {
@@ -88,8 +97,10 @@ body {
 }
 
 .trail-card-body h3 {
-  font-size: 1.05rem;
+  font-family: 'Horizon', sans-serif;
+  font-size: 1.2rem;
   margin-bottom: 8px;
+  letter-spacing: 0.01em;
 }
 
 .trail-meta {
@@ -296,6 +307,7 @@ dialog::backdrop {
 .weather-safe { color: #22c55e; }
 .weather-caution { color: #eab308; }
 .weather-hazard { color: #ef4444; }
+.weather-unknown { color: #999; }
 
 /* Footer */
 .site-footer {
@@ -347,7 +359,6 @@ dialog::backdrop {
   width: 1080px;
   height: 1920px;
   overflow: hidden;
-  font-family: 'Poppins', sans-serif;
 }
 
 .receipt-bg {
@@ -368,15 +379,30 @@ dialog::backdrop {
   color: #fff;
 }
 
+/* Time — tiny, top-center */
+.receipt-time-top {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 0.05em;
+}
+
 /* Top row */
 .receipt-top-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-top: 40px;
 }
 
 .receipt-route-icon {
-  width: 130px;
+  width: 240px;
   height: auto;
   object-fit: contain;
 }
@@ -385,12 +411,12 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 16px;
+  gap: 18px;
 }
 
 .receipt-mini-logo {
-  width: 60px;
-  height: 60px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
 }
 
@@ -400,38 +426,42 @@ dialog::backdrop {
 }
 
 .receipt-names-list-new li {
-  font-size: 42px;
-  font-weight: 800;
-  line-height: 1.25;
+  font-family: 'Horizon', sans-serif;
+  font-size: 68px;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
-/* Bottom block */
+/* Bottom block — center aligned */
 .receipt-bottom-block {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
 }
 
 .receipt-hazard {
-  font-size: 26px;
-  font-weight: 700;
-  padding: 12px 20px;
+  font-family: 'Horizon', sans-serif;
+  font-size: 30px;
+  padding: 14px 24px;
   border-radius: 999px;
   display: inline-block;
   width: fit-content;
+  align-self: center;
 }
 
 .receipt-trail-number {
-  font-size: 90px;
-  font-weight: 900;
-  line-height: 1;
+  font-family: 'Horizon', sans-serif;
+  font-size: 170px;
+  line-height: 0.95;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .receipt-date {
-  font-size: 32px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 34px;
   font-weight: 600;
   color: #eee;
 }
@@ -439,13 +469,15 @@ dialog::backdrop {
 .receipt-brand-bottom-left {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   margin-top: 18px;
 }
 
 .receipt-brand-text {
+  font-family: 'League Spartan', sans-serif;
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 600;
   color: #eee;
 }
 
@@ -471,6 +503,6 @@ dialog::backdrop {
     padding: 20px;
   }
   .hero-overlay h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 }
