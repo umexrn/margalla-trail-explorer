@@ -26,6 +26,11 @@ function difficultyClass(difficulty) {
   return "difficulty-moderate";
 }
 
+function shortTrailLabel(name) {
+  const match = name.match(/Trail\s*\d+/i);
+  return match ? match[0].toUpperCase() : name.toUpperCase();
+}
+
 function renderTrails() {
   const grid = document.getElementById("trailGrid");
   grid.innerHTML = "";
@@ -125,7 +130,7 @@ function fetchWeather() {
       } else {
         level = `Clear conditions (${rain} mm/hr) — Safe to hike.`;
         className = "weather-safe";
-        hazardLabel = "✓ CLEAR CONDITIONS";
+        hazardLabel = "CLEAR CONDITIONS ✓";
         hazardColor = "#22c55e";
       }
 
@@ -162,8 +167,7 @@ planForm.addEventListener("submit", (e) => {
 function generateReceipt(hikeData) {
   const bgImage = hikeData.customImage || hikeData.trail.image;
   document.getElementById("receiptBg").style.setProperty("--bg-img", `url('${bgImage}')`);
-  document.getElementById("rTrailName").textContent = hikeData.trail.name;
-  document.getElementById("rDifficulty").textContent = hikeData.trail.difficulty;
+  document.getElementById("rTrailNumber").textContent = shortTrailLabel(hikeData.trail.name);
 
   const formattedDate = new Date(hikeData.date).toLocaleDateString("en-US", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
@@ -185,15 +189,18 @@ function generateReceipt(hikeData) {
 
   const template = document.getElementById("receiptTemplate");
 
-  html2canvas(template, { width: 1080, height: 1920, scale: 1, useCORS: true }).then(canvas => {
-    const previewCanvas = document.getElementById("receiptCanvas");
-    previewCanvas.width = canvas.width;
-    previewCanvas.height = canvas.height;
-    const ctx = previewCanvas.getContext("2d");
-    ctx.drawImage(canvas, 0, 0);
+  // Wait for fonts to be ready so html2canvas captures Poppins correctly
+  document.fonts.ready.then(() => {
+    html2canvas(template, { width: 1080, height: 1920, scale: 1, useCORS: true }).then(canvas => {
+      const previewCanvas = document.getElementById("receiptCanvas");
+      previewCanvas.width = canvas.width;
+      previewCanvas.height = canvas.height;
+      const ctx = previewCanvas.getContext("2d");
+      ctx.drawImage(canvas, 0, 0);
 
-    window.currentReceiptCanvas = canvas;
-    document.getElementById("receiptModal").showModal();
+      window.currentReceiptCanvas = canvas;
+      document.getElementById("receiptModal").showModal();
+    });
   });
 }
 
