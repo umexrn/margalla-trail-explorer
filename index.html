@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Margalla Trail Explorer</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -93,23 +96,23 @@
     <div class="receipt-bg" id="receiptBg"></div>
     <div class="receipt-overlay">
 
-      <div class="receipt-content-top">
-        <div class="receipt-info-block">
-          <span class="receipt-trail-name" id="rTrailName"></span>
-          <span class="receipt-difficulty" id="rDifficulty"></span>
-          <span class="receipt-date" id="rDate"></span>
-          <div class="receipt-hazard" id="rHazard"></div>
-        </div>
-
-        <div class="receipt-names-list">
-          <span class="receipt-names-title">Hiking With</span>
-          <ul id="rNamesList"></ul>
+      <div class="receipt-top-row">
+        <img src="assets/route-icon.png" class="receipt-route-icon" alt="">
+        <div class="receipt-top-right">
+          <img src="assets/logo-transparent.png" class="receipt-mini-logo" alt="">
+          <ul id="rNamesList" class="receipt-names-list-new"></ul>
         </div>
       </div>
 
-      <div class="receipt-brand-bottom">
-        <img src="assets/logo-transparent.png" class="receipt-logo" alt="">
-        <span class="receipt-brand-text">Made with Margalla Hiking Tracker</span>
+      <div class="receipt-bottom-block">
+        <div class="receipt-hazard" id="rHazard"></div>
+        <span class="receipt-trail-number" id="rTrailNumber"></span>
+        <span class="receipt-date" id="rDate"></span>
+
+        <div class="receipt-brand-bottom-left">
+          <span class="receipt-brand-text">Made with Margalla Trail Explorer</span>
+          <img src="assets/logo-transparent.png" class="receipt-logo-small" alt="">
+        </div>
       </div>
 
     </div>
