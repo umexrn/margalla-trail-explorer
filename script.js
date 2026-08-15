@@ -2,6 +2,7 @@
 
 let trails = [];
 let currentTrail = null;
+let currentHikeData = null;
 
 const MARGALLA_LAT = 33.7515;
 const MARGALLA_LON = 73.0433;
@@ -144,20 +145,23 @@ function fetchWeather() {
 planForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const hikeData = {
+  currentHikeData = {
     trail: currentTrail,
     date: document.getElementById("pDate").value,
     names: document.getElementById("pNames").value.split(",").map(n => n.trim()).filter(Boolean),
-    hazard: window.currentHazard
+    hazard: window.currentHazard,
+    customImage: null
   };
 
   planModal.close();
-  generateReceipt(hikeData);
+  document.getElementById("resetPhotoBtn").hidden = true;
+  generateReceipt(currentHikeData);
 });
 
 // ---------- Receipt generation ----------
 function generateReceipt(hikeData) {
-  document.getElementById("receiptBg").style.setProperty("--bg-img", `url('${hikeData.trail.image}')`);
+  const bgImage = hikeData.customImage || hikeData.trail.image;
+  document.getElementById("receiptBg").style.setProperty("--bg-img", `url('${bgImage}')`);
   document.getElementById("rTrailName").textContent = hikeData.trail.name;
   document.getElementById("rDifficulty").textContent = hikeData.trail.difficulty;
 
@@ -181,7 +185,7 @@ function generateReceipt(hikeData) {
 
   const template = document.getElementById("receiptTemplate");
 
-  html2canvas(template, { width: 1080, height: 1920, scale: 1 }).then(canvas => {
+  html2canvas(template, { width: 1080, height: 1920, scale: 1, useCORS: true }).then(canvas => {
     const previewCanvas = document.getElementById("receiptCanvas");
     previewCanvas.width = canvas.width;
     previewCanvas.height = canvas.height;
@@ -218,4 +222,30 @@ document.getElementById("shareReceiptBtn").addEventListener("click", () => {
       alert("Direct sharing isn't supported on this browser/device. Please use Download and share manually.");
     }
   }, "image/png");
+});
+
+// ---------- Custom photo upload ----------
+const photoUploadInput = document.getElementById("photoUploadInput");
+
+document.getElementById("uploadPhotoBtn").addEventListener("click", () => {
+  photoUploadInput.click();
+});
+
+photoUploadInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    currentHikeData.customImage = event.target.result;
+    document.getElementById("resetPhotoBtn").hidden = false;
+    generateReceipt(currentHikeData);
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("resetPhotoBtn").addEventListener("click", () => {
+  currentHikeData.customImage = null;
+  document.getElementById("resetPhotoBtn").hidden = true;
+  generateReceipt(currentHikeData);
 });
