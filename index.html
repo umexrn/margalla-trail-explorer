@@ -87,25 +87,26 @@
   <div id="receiptTemplate" class="receipt-template">
     <div class="receipt-bg" id="receiptBg"></div>
     <div class="receipt-overlay">
-      <div class="receipt-top">
+
+      <div class="receipt-content-top">
+        <div class="receipt-info-block">
+          <span class="receipt-trail-name" id="rTrailName"></span>
+          <span class="receipt-difficulty" id="rDifficulty"></span>
+          <span class="receipt-date" id="rDate"></span>
+          <div class="receipt-hazard" id="rHazard"></div>
+        </div>
+
+        <div class="receipt-names-list">
+          <span class="receipt-names-title">Hiking With</span>
+          <ul id="rNamesList"></ul>
+        </div>
+      </div>
+
+      <div class="receipt-brand-bottom">
         <img src="assets/logo-transparent.png" class="receipt-logo" alt="">
         <span class="receipt-brand-text">Made with Margalla Hiking Tracker</span>
       </div>
 
-      <div class="receipt-main">
-        <span class="receipt-trail-name" id="rTrailName"></span>
-        <span class="receipt-difficulty" id="rDifficulty"></span>
-
-        <div class="receipt-row">
-          <span id="rDate"></span>
-        </div>
-        <div class="receipt-row">
-          <span id="rPeopleCount"></span>
-        </div>
-        <div class="receipt-names" id="rNames"></div>
-
-        <div class="receipt-hazard" id="rHazard"></div>
-      </div>
     </div>
   </div>
 
