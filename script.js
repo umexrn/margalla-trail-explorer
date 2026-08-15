@@ -147,7 +147,6 @@ planForm.addEventListener("submit", (e) => {
   const hikeData = {
     trail: currentTrail,
     date: document.getElementById("pDate").value,
-    peopleCount: Number(document.getElementById("pPeopleCount").value),
     names: document.getElementById("pNames").value.split(",").map(n => n.trim()).filter(Boolean),
     hazard: window.currentHazard
   };
@@ -166,8 +165,14 @@ function generateReceipt(hikeData) {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
   });
   document.getElementById("rDate").textContent = formattedDate;
-  document.getElementById("rPeopleCount").textContent = `${hikeData.peopleCount} ${hikeData.peopleCount === 1 ? "person" : "people"}`;
-  document.getElementById("rNames").textContent = hikeData.names.join(", ");
+
+  const namesList = document.getElementById("rNamesList");
+  namesList.innerHTML = "";
+  hikeData.names.forEach(name => {
+    const li = document.createElement("li");
+    li.textContent = name;
+    namesList.appendChild(li);
+  });
 
   const hazardEl = document.getElementById("rHazard");
   hazardEl.textContent = hikeData.hazard.hazardLabel;
