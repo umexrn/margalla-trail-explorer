@@ -109,32 +109,38 @@ function fetchWeather() {
     .then(res => res.json())
     .then(data => {
       const rain = data.current?.precipitation ?? 0;
-      let level, className;
+      let level, className, hazardLabel, hazardColor;
 
       if (rain >= 7.5) {
         level = `Heavy rain (${rain} mm/hr) — Flash flood risk. Hike with caution.`;
         className = "weather-hazard";
+        hazardLabel = "⚠ HAZARDOUS CONDITIONS";
+        hazardColor = "#ef4444";
       } else if (rain >= 2.5) {
         level = `Moderate rain (${rain} mm/hr) — Trail may be slippery.`;
         className = "weather-caution";
+        hazardLabel = "⚠ USE CAUTION";
+        hazardColor = "#eab308";
       } else {
         level = `Clear conditions (${rain} mm/hr) — Safe to hike.`;
         className = "weather-safe";
+        hazardLabel = "✓ CLEAR CONDITIONS";
+        hazardColor = "#22c55e";
       }
 
       statusEl.textContent = level;
       statusEl.className = `weather-status ${className}`;
-      window.currentHazard = { rain, className };
+      window.currentHazard = { rain, hazardLabel, hazardColor };
     })
     .catch(err => {
       console.error("Weather fetch failed", err);
       statusEl.textContent = "Weather unavailable — check conditions before hiking.";
       statusEl.className = "weather-status weather-caution";
-      window.currentHazard = { rain: null, className: "weather-caution" };
+      window.currentHazard = { rain: null, hazardLabel: "⚠ WEATHER UNAVAILABLE", hazardColor: "#eab308" };
     });
 }
 
-// ---------- Form submit (receipt generation wired up next step) ----------
+// ---------- Form submit → build receipt ----------
 planForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -146,6 +152,65 @@ planForm.addEventListener("submit", (e) => {
     hazard: window.currentHazard
   };
 
-  console.log("Hike plan submitted:", hikeData);
-  // Next step: generate the shareable receipt image from this data
+  planModal.close();
+  generateReceipt(hikeData);
+});
+
+// ---------- Receipt generation ----------
+function generateReceipt(hikeData) {
+  document.getElementById("receiptBg").style.setProperty("--bg-img", `url('${hikeData.trail.image}')`);
+  document.getElementById("rTrailName").textContent = hikeData.trail.name;
+  document.getElementById("rDifficulty").textContent = hikeData.trail.difficulty;
+
+  const formattedDate = new Date(hikeData.date).toLocaleDateString("en-US", {
+    weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+  document.getElementById("rDate").textContent = formattedDate;
+  document.getElementById("rPeopleCount").textContent = `${hikeData.peopleCount} ${hikeData.peopleCount === 1 ? "person" : "people"}`;
+  document.getElementById("rNames").textContent = hikeData.names.join(", ");
+
+  const hazardEl = document.getElementById("rHazard");
+  hazardEl.textContent = hikeData.hazard.hazardLabel;
+  hazardEl.style.background = hikeData.hazard.hazardColor;
+  hazardEl.style.color = "#0f0f10";
+
+  const template = document.getElementById("receiptTemplate");
+
+  html2canvas(template, { width: 1080, height: 1920, scale: 1 }).then(canvas => {
+    const previewCanvas = document.getElementById("receiptCanvas");
+    previewCanvas.width = canvas.width;
+    previewCanvas.height = canvas.height;
+    const ctx = previewCanvas.getContext("2d");
+    ctx.drawImage(canvas, 0, 0);
+
+    window.currentReceiptCanvas = canvas;
+    document.getElementById("receiptModal").showModal();
+  });
+}
+
+document.getElementById("closeReceiptModal").addEventListener("click", () => {
+  document.getElementById("receiptModal").close();
+});
+
+document.getElementById("downloadReceiptBtn").addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.download = "hike-receipt.png";
+  link.href = window.currentReceiptCanvas.toDataURL("image/png");
+  link.click();
+});
+
+document.getElementById("shareReceiptBtn").addEventListener("click", () => {
+  window.currentReceiptCanvas.toBlob(blob => {
+    const file = new File([blob], "hike-receipt.png", { type: "image/png" });
+
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({
+        files: [file],
+        title: "My Hike Plan",
+        text: "Planning a hike at Margalla Hills!"
+      }).catch(err => console.log("Share cancelled or failed", err));
+    } else {
+      alert("Direct sharing isn't supported on this browser/device. Please use Download and share manually.");
+    }
+  }, "image/png");
 });
